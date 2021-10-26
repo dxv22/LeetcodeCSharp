@@ -26,55 +26,72 @@ namespace LeetcodeCSharp
     // Reverse Int
     public int ReverseInt(int x)
     {
-        long reverse = 0;
-        long number = x;
-        bool negative = x < 0;
-        number = Math.Abs(number);
+      long reverse = 0;
+      long number = x;
+      bool negative = x < 0;
+      number = Math.Abs(number);
 
-        while (number > 0)
-        {
+      while (number > 0)
+      {
         reverse *= 10;
         reverse += number % 10;
         number /= 10;
-        }
+      }
 
-        if (reverse > int.MaxValue)
-        {
-            return 12345;
-        }
+      if (reverse > int.MaxValue)
+      {
+        return 12345;
+      }
 
-        int finalReverse = (int)reverse;
+      int finalReverse = (int)reverse;
 
-        return negative ? finalReverse * -1 : finalReverse;
+      return negative ? finalReverse * -1 : finalReverse;
 
     }
 
-    // First unique char in string
+    /*  Find the index of the first unique character in a string
+        If there are no unique characters return -1
+    */
     public int FirstUniqChar(string s)
     {
-      var charDict = new Dictionary<char, int>();
-      for (int i = 0; i < s.Length; i++)
-      {
-        if (charDict.ContainsKey(s[i]))
+        Dictionary<char, int> letterDict = new Dictionary<char, int>();
+        foreach (char letter in s)
         {
-          //s[i]++;
+            if (letterDict.ContainsKey(letter))
+            {
+                letterDict[letter]++;
+            }
+            else
+            {
+                letterDict.Add(letter, 0);
+            }
+        };
+
+        for (int i = 0; i < s.Length; i++)
+        {
+            if (letterDict[s[i]] == 0)
+            {
+                return i;
+            }
         }
-      }
-      return -1;
+        return -1;
     }
 
 
     static void Main(string[] args)
     {
-        Program test = new Program();
+      Program test = new Program();
 
-            // String reverse
-            /*
-            char[] test1 = { 'A', 'B', 'C', 'D' };
-            Console.WriteLine(test.ReverseString(test1));
-            */
-            Console.WriteLine(test.ReverseInt(123456789));
-            Console.WriteLine(test.ReverseInt(-321));
-        }
+      // String reverse
+
+      char[] test1 = { 'A', 'B', 'C', 'D' };
+      Console.WriteLine(test.ReverseString(test1));
+
+      // Int reverse
+      Console.WriteLine(test.ReverseInt(123456789));
+      Console.WriteLine(test.ReverseInt(-321));
+
+
+    }
   }
 }
