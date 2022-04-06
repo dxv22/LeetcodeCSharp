@@ -78,18 +78,41 @@ namespace LeetcodeCSharp
     }
 
 
-    static void Main(string[] args)
+        //Valid anagram - return true or false if two words are anagrams of each other
+        public bool IsAnagram(string s, string t)
+        {
+            char[] cs = s.ToCharArray();
+            char[] ct = t.ToCharArray();
+
+            Array.Sort(cs);
+            Array.Sort(ct);
+
+            String ss = new String(cs);
+            String st = new String(ct);
+
+            Console.WriteLine("Is \"{0}\" an anagram of \"{1}\" - " + ss.Equals(st), ss, st);
+
+            return ss.Equals(st);
+
+        }
+
+
+        static void Main(string[] args)
     {
-      Program test = new Program();
+        Program test = new Program();
 
-      // String reverse
+        //String reverse
 
-      char[] test1 = { 'A', 'B', 'C', 'D' };
-      Console.WriteLine(test.ReverseString(test1));
+        char[] test1 = { 'A', 'B', 'C', 'D' };
+        Console.WriteLine(test.ReverseString(test1));
 
-      // Int reverse
-      Console.WriteLine(test.ReverseInt(123456789));
-      Console.WriteLine(test.ReverseInt(-321));
+        //Int reverse
+        Console.WriteLine(test.ReverseInt(123456789));
+        Console.WriteLine(test.ReverseInt(-321));
+
+        //Valid anagram
+        test.IsAnagram("asdsdsd", "xxyysa"); //false
+        test.IsAnagram("asds", "ssda"); //true 
 
 
     }
