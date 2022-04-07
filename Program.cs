@@ -78,23 +78,41 @@ namespace LeetcodeCSharp
     }
 
 
-        //Valid anagram - return true or false if two words are anagrams of each other
-        public bool IsAnagram(string s, string t)
+    //Valid anagram - return true or false if two words are anagrams of each other
+    public bool IsAnagram(string s, string t)
+    {
+        char[] cs = s.ToCharArray();
+        char[] ct = t.ToCharArray();
+
+        Array.Sort(cs);
+        Array.Sort(ct);
+
+        String ss = new String(cs);
+        String st = new String(ct);
+
+        Console.WriteLine("Is \"{0}\" an anagram of \"{1}\" - " + ss.Equals(st), ss, st);
+
+        return ss.Equals(st);
+
+    }
+
+
+    //Plus one - given a number in a list of ints, add one to that number and return the new list
+    public int[] PlusOne(int[] digits)
+    {
+        for ( int i = digits.Length - 1; i >= 0; i--)
         {
-            char[] cs = s.ToCharArray();
-            char[] ct = t.ToCharArray();
-
-            Array.Sort(cs);
-            Array.Sort(ct);
-
-            String ss = new String(cs);
-            String st = new String(ct);
-
-            Console.WriteLine("Is \"{0}\" an anagram of \"{1}\" - " + ss.Equals(st), ss, st);
-
-            return ss.Equals(st);
-
+            if (digits[i] < 9)
+            {
+                digits[i]++;
+                return digits;
+            }
+            digits[i] = 0;
         }
+        int[] final = new int[digits.Length + 1];
+        final[0] = 1;
+        return final;
+    }
 
 
         static void Main(string[] args)
@@ -102,7 +120,6 @@ namespace LeetcodeCSharp
         Program test = new Program();
 
         //String reverse
-
         char[] test1 = { 'A', 'B', 'C', 'D' };
         Console.WriteLine(test.ReverseString(test1));
 
@@ -114,7 +131,21 @@ namespace LeetcodeCSharp
         test.IsAnagram("asdsdsd", "xxyysa"); //false
         test.IsAnagram("asds", "ssda"); //true 
 
+            //Plus one
+            int[] plusOneTest1 = { 1, 4, 5 };
+            int[] plusOneTest2 = { 9, 8, 9 };
 
+            string plusOneTest1Str = string.Join(",", plusOneTest1);
+            string plusOneTest2Str = string.Join(",", plusOneTest2);
+
+            int[] plusOnePostTest1 = test.PlusOne(plusOneTest1);
+            int[] plusOnePostTest2 = test.PlusOne(plusOneTest2);
+
+            string plusOnePostTest1Str = string.Join(",", plusOnePostTest1);
+            string plusOnePostTest2Str = string.Join(",", plusOnePostTest2);
+
+            Console.WriteLine("Running plusOne on {{{0}}} => {{{1}}}", plusOneTest1Str, plusOnePostTest1Str);
+            Console.WriteLine("Running plusOne on {{{0}}} => {{{1}}}", plusOneTest2Str, plusOnePostTest2Str);
     }
   }
 }
